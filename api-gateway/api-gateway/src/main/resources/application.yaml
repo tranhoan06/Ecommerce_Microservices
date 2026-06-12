@@ -20,6 +20,25 @@ spring:
 #          predicates:
 #            - Path=/api/v1/product/**
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/vti-dtn-2506
+          jwt-set-uri: http://localhost:8080/realms/vti-dtn-2506/protocol/openid-connect/certs
+
+    permissions:
+      - path: /api/auth/**
+        permit-all: true
+
+      - path: /api/v1/order/**
+        roles:
+          - ROLE_USER
+
+      - path: /api/v1/products/**
+        roles:
+          - ROLE_USER
+
 server:
   port: 8282
 
